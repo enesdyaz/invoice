@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% block title %}Repair Form Details{% endblock title %}
+{% block content %}
+
+<div id="wrap" style='margin: 20px;'>
+<div class='container'>
+    <div class="PersonalDeviceDetails" style='display:flex; padding: 20px;'>
+        <div class="card" style='width: 600px;margin: 5px'>
+                <h5 class="card-header">Device Details</h5>
+                    <div class="card-body"> Phone Brand: 
+
+                       <select id="phone" name="phone" onchange='phoneChange()'> 
+                           <option value="" selected>select</option>
+                           <option value="Apple">APPLE</option>
+                           <option value="Samsung">SAMSUNG</option>
+                           <option value="HTC">HTC</option>
+                       </select>
+                       <select id="phone2" name="phone2" onchange='phone2Change()'></select>
+                       <div id='result' style='margin-top: 10px'></div>
+                    </div>
+        </div>
+
+        <div class="card" style='width: 600px;margin: 5px'>
+                <h5 class="card-header">Personal Details</h5>
+                    <div class="card-body">
+                        <h5 class="card-title">Special title treatment</h5>
+                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}
+
+
+
+{% block extra_js %}
+<script>
+    var phoneModels = {};
+        phoneModels['Apple'] = ['iphone6', 'iphone7', 'iphone8', 'iphone10']
+        phoneModels['Samsung'] = ['Galaxy S8', 'Galaxy S9', 'Galaxy S10', 'Note 10']
+        phoneModels['HTC'] = ['HTC 10', 'HTC 11']
+
+// 위에 모델을 셀렉트에 넣어봅시다
+
+function phoneChange(){
+    // 미리 id를 생성(선택) 합니다.
+    var phoneList = document.getElementById('phone');
+    var phone2List = document.getElementById('phone2');
+
+    // car 셀렉트를 선택하였을때 옵션의 셀렉트 인덱스값을 받아옵니다.
+    var selPhone = phoneList.options[phoneList.selectedIndex].value;
+    
+    // car 옵션의 value를  carsAndModels의 값에 연결합니다.
+    var phones = phoneModels[selPhone]
+  
+    // 모델의 값이 있으면 그 값을 제거한다. 다른 옵션을 선택하였을때 다시보여주기 위함.
+    while(phone2List.options.length) {
+        
+        phone2List.remove(0);
+    }
+    // cars 에 값이 들어가면 들어간만큼 loop를 돌면서 하나씩 options에 add를 합니다. 
+    if (phones) {
+        
+        for (var i=0; i<phones.length; i++){
+            // var car = new Option(cars[i], i);
+            var phone = document.createElement('option')
+            phone.value = phones[i]
+            phone.textContent = phones[i]
+        
+            phone2List.options.add(phone);
+        }
+    }
+    selPhoneModel = phone2List.options[phone2List.selectedIndex].value;
+    console.log(selPhoneModel);
+  
+}
+function phone2Change() {
+    phoneList = document.getElementById('phone')
+    phone2List = document.getElementById('phone2');
+    
+    selPhone = phoneList.options[phoneList.selectedIndex].value;
+    selPhoneModel = phone2List.options[phone2List.selectedIndex].value;
+
+    console.log(selPhone);
+    console.log(selPhoneModel)
+    result = 'your device : ' + selPhone + ' > ' + selPhoneModel;
+    document.getElementById('result').innerHTML = result;
+}
+
+
+</script>
+{% endblock extra_js %}
