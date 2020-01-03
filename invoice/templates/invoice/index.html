@@ -7,7 +7,7 @@
     <div class="PersonalDeviceDetails" style='display:flex; padding: 20px;'>
         <div class="card" style='width: 600px;margin: 5px'>
                 <h5 class="card-header">Device Details</h5>
-                    <div class="card-body"> Phone Brand: 
+                    <div class="card-body" style='height:auto;'> Phone Brand: 
 
                        <select id="phone" name="phone" onchange='phoneChange()'> 
                            <option value="" selected>select</option>
@@ -15,9 +15,32 @@
                            <option value="Samsung">SAMSUNG</option>
                            <option value="HTC">HTC</option>
                        </select>
-                       <select id="phone2" name="phone2" onchange='phone2Change()'></select>
+                       <select id="phone2" name="phone2" onchange='phone2Change()'>
+                            <option value="" selected>select</option>
+                        </select>
                        <div id='result' style='margin-top: 10px'></div>
-                    </div>
+
+                    <form style='margin-top: 30px;'> Problems:
+                       <div class="form-check form-check-inline" style='margin-left: 10px;'>
+                        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                        <label class="form-check-label" for="inlineCheckbox1"> DigiTizer</label>
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+                        <label class="form-check-label" for="inlineCheckbox2">LCD</label>
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option2">
+                        <label class="form-check-label" for="inlineCheckbox2">Back</label>
+                      </div>
+                      
+                    </form>
+                    
+                     
+                        <select name="" id="others" onchange='othersChange()'>Others :
+                            <option value="" selected>None</option>
+                        </select>
+                    
         </div>
 
         <div class="card" style='width: 600px;margin: 5px'>
@@ -76,19 +99,57 @@ function phoneChange(){
     console.log(selPhoneModel);
   
 }
+
+
+othersList = {};
+othersList['iphone6'] = ['power issue 6', 'battery issue', 'sensor issue']
+othersList['iphone7'] = ['power issue 7', 'battery issue', 'sensor issue']
+othersList['iphone8'] = ['power issue 8', 'battery issue', 'sensor issue']
+othersList['iphone10'] = ['power issue 10', 'battery issue', 'sensor issue']
+
 function phone2Change() {
     phoneList = document.getElementById('phone')
     phone2List = document.getElementById('phone2');
+    others = document.getElementById('others');
     
     selPhone = phoneList.options[phoneList.selectedIndex].value;
     selPhoneModel = phone2List.options[phone2List.selectedIndex].value;
 
-    console.log(selPhone);
-    console.log(selPhoneModel)
+    selPhoneModelDetail = othersList[selPhoneModel];
+
+    while(others.options.length){
+        others.remove(0);
+    }
+    if(selPhoneModelDetail){
+    for(var i=0; i<selPhoneModel.length; i++){
+        phone = document.createElement('option')
+        phone.value=selPhoneModelDetail[i]
+        phone.text=selPhoneModelDetail[i]
+
+        others.options.add(phone);
+    }
+    }
+    
     result = 'your device : ' + selPhone + ' > ' + selPhoneModel;
     document.getElementById('result').innerHTML = result;
 }
 
+
+function othersChange() {
+    phone2List = document.getElementById('phone2')
+    others = document.getElementById('others');
+
+    phones = phone2List.options[phone2List.selectedIndex].value
+    console.log(phones)
+    for (var i=0; i < othersProblemsList.length; i++){
+            // var car = new Option(cars[i], i);
+            var phone = document.createElement('option')
+            phone.value = othersProblemsList[i]
+            phone.textContent = othersProblemsList[i]
+        
+            others.options.add(phone);
+        }
+}
 
 </script>
 {% endblock extra_js %}
