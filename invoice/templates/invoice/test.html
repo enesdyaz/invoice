@@ -8,7 +8,7 @@
 </head>
 <body>
     <select name="" id="phone" onchange='phoneChange()'></select>
-    <select name="" id="phone2" ></select>
+    <select name="" id="phone2" onchange='phone2Change()'></select>
     <select name="" id="phone3"></select>
 
 
@@ -30,6 +30,7 @@
     phone.options.add(option);
     }
 
+
     function phoneChange(){
     // ID 선택하기
     var phone = document.getElementById('phone')
@@ -40,7 +41,7 @@
 
     // 선택한 값과 2번째 모델 매칭
     a = models[selPhone]
-    console.log(selPhone)
+    
     
     // 선택한 값과 2번째 모델과 연결하기
     while(phone2.length) {
@@ -53,6 +54,29 @@
     phone2.options.add(option);
     }
     
+    }
+
+    function phone2Change(){
+        var phone2 = document.getElementById('phone2')
+        var phone3 = document.getElementById('phone3')
+
+    // OPTION 선택한 값 선택하기
+    var selPhone = phone2.options[phone2.selectedIndex].value
+
+    // 선택한 값과 2번째 모델 매칭
+    // a = models[selPhone]
+    // a = Object.keys(models)
+    const a = Object.values(models)
+    console.log(a)
+    phone = models[selPhone][a]
+    console.log(phone)
+
+    // 선택한 값과 2번째 모델과 연결하기
+    while(phone3.length) {
+        phone3.remove(0)
+    }
+    
+
     }
     
     </script>

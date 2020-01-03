@@ -4,43 +4,37 @@
 
 <div id="wrap" style='margin: 20px;'>
 <div class='container'>
+
     <div class="PersonalDeviceDetails" style='display:flex; padding: 20px;'>
         <div class="card" style='width: 600px;margin: 5px'>
                 <h5 class="card-header">Device Details</h5>
                     <div class="card-body" style='height:auto;'> Phone Brand: 
 
-                       <select id="phone" name="phone" onchange='phoneChange()'> 
+                        <!-- SELECT 1 -->
+                    
+                       <select class='custom-select' id="phone" name="phone" onchange='phoneChange()' style='margin: 3px'> 
                            <option value="" selected>select</option>
                            <option value="Apple">APPLE</option>
                            <option value="Samsung">SAMSUNG</option>
                            <option value="HTC">HTC</option>
                        </select>
-                       <select id="phone2" name="phone2" onchange='phone2Change()'>
+
+                       <!-- SELECT 2 -->
+                       <select class='custom-select' id="phone2" name="phone2" onchange='phone2Change()' style='margin: 3px'>
                             <option value="" selected>select</option>
                         </select>
-                       <div id='result' style='margin-top: 10px'></div>
-
-                    <form style='margin-top: 30px;'> Problems:
-                       <div class="form-check form-check-inline" style='margin-left: 10px;'>
-                        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-                        <label class="form-check-label" for="inlineCheckbox1"> DigiTizer</label>
-                      </div>
-                      <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-                        <label class="form-check-label" for="inlineCheckbox2">LCD</label>
-                      </div>
-                      <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option2">
-                        <label class="form-check-label" for="inlineCheckbox2">Back</label>
-                      </div>
                       
-                    </form>
-                    
-                     
-                        <select name="" id="others" onchange='othersChange()'>Others :
+
+                        <!-- SELECT 3      -->
+                        <select class='custom-select' name="" id="others" onchange='phone3Change()' style='margin: 3px'>Others :
                             <option value="" selected>None</option>
                         </select>
                     
+
+                        <!-- RESULT DISPLAY -->
+                        <div id='result' style='margin-top: 10px'></div>
+        
+        </div>
         </div>
 
         <div class="card" style='width: 600px;margin: 5px'>
@@ -104,18 +98,17 @@ function phoneChange(){
 
 othersList = {};
 
-othersList['iphone6'] = ['screen issue', 'battery issue', 'sensor issue']
-othersList['iphone7'] = ['screen issue', 'battery issue', 'sensor issue']
-othersList['iphone8'] = ['power issue 8', 'battery issue', 'sensor issue']
-othersList['iphone10'] = ['power issue 10', 'battery issue', 'sensor issue']
-othersList['Galaxy S8']=['']
-othersList['Galaxy S9']=['']
-othersList['Galaxy S10']=['']
-othersList['Note 10']=['']
-othersList['HTC 10']=['']
-othersList['HTC 11']=['']
-phoneModels['Samsung'] = ['Galaxy S8', 'Galaxy S9', 'Galaxy S10', 'Note 10']
-        phoneModels['HTC'] = ['HTC 10', 'HTC 11']
+othersList['iphone6'] = ['6 screen issue', 'battery issue', 'sensor issue']
+othersList['iphone7'] = ['7 screen issue', 'battery issue', 'sensor issue']
+othersList['iphone8'] = ['8 power issue 8', 'battery issue', 'sensor issue']
+othersList['iphone10'] = ['10 power issue 10', 'battery issue', 'sensor issue']
+othersList['Galaxy S8']=['S8 power issue 10', 'battery issue', 'sensor issue']
+othersList['Galaxy S9']=['S9 power issue 10', 'battery issue', 'sensor issue']
+othersList['Galaxy S10']=['S10 power issue 10', 'battery issue', 'sensor issue']
+othersList['Note 10']=['10 power issue 10', 'battery issue', 'sensor issue']
+othersList['HTC 10']=['10 power issue 10', 'battery issue', 'sensor issue']
+othersList['HTC 11']=['11 power issue 10', 'battery issue', 'sensor issue']
+
 
 function phone2Change() {
     phoneList = document.getElementById('phone')
@@ -124,26 +117,33 @@ function phone2Change() {
     
     selPhone = phoneList.options[phoneList.selectedIndex].value;
     selPhoneModel = phone2List.options[phone2List.selectedIndex].value;
+    
 
-    selPhoneModelDetail = othersList[selPhoneModel];
+    phones = othersList[selPhoneModel];
+    
 
     while(others.options.length){
         others.remove(0);
     }
-    if(selPhoneModelDetail){
-    for(var i=0; i<selPhoneModel.length; i++){
+    if(phones){
+    for(var i=0; i<phones.length; i++){
+        
         phone = document.createElement('option')
-        phone.value=selPhoneModelDetail[i]
-        phone.text=selPhoneModelDetail[i]
+        phone.value=phones[i]
+        phone.text=phones[i]
 
         others.options.add(phone);
     }
     }
-    
-    result = 'your device : ' + selPhone + ' > ' + selPhoneModel;
-    document.getElementById('result').innerHTML = result;
 }
 
+function phone3Change(){
+    others = document.getElementById('others');
+    selPhoneModelDetail = others.options[others.selectedIndex].value;
+    console.log(selPhoneModelDetail)
+    result = 'Device / Issue : ' + selPhone + ' > ' + selPhoneModel + ' > ' + selPhoneModelDetail;
+    document.getElementById('result').innerHTML = result;
+}
 
 
 </script>
