@@ -60,6 +60,7 @@
 
 {% block extra_js %}
 <script>
+
     var phoneModels = {};
         phoneModels['Apple'] = ['iphone6', 'iphone7', 'iphone8', 'iphone10']
         phoneModels['Samsung'] = ['Galaxy S8', 'Galaxy S9', 'Galaxy S10', 'Note 10']
@@ -102,10 +103,19 @@ function phoneChange(){
 
 
 othersList = {};
-othersList['iphone6'] = ['power issue 6', 'battery issue', 'sensor issue']
-othersList['iphone7'] = ['power issue 7', 'battery issue', 'sensor issue']
+
+othersList['iphone6'] = ['screen issue', 'battery issue', 'sensor issue']
+othersList['iphone7'] = ['screen issue', 'battery issue', 'sensor issue']
 othersList['iphone8'] = ['power issue 8', 'battery issue', 'sensor issue']
 othersList['iphone10'] = ['power issue 10', 'battery issue', 'sensor issue']
+othersList['Galaxy S8']=['']
+othersList['Galaxy S9']=['']
+othersList['Galaxy S10']=['']
+othersList['Note 10']=['']
+othersList['HTC 10']=['']
+othersList['HTC 11']=['']
+phoneModels['Samsung'] = ['Galaxy S8', 'Galaxy S9', 'Galaxy S10', 'Note 10']
+        phoneModels['HTC'] = ['HTC 10', 'HTC 11']
 
 function phone2Change() {
     phoneList = document.getElementById('phone')
@@ -135,21 +145,6 @@ function phone2Change() {
 }
 
 
-function othersChange() {
-    phone2List = document.getElementById('phone2')
-    others = document.getElementById('others');
-
-    phones = phone2List.options[phone2List.selectedIndex].value
-    console.log(phones)
-    for (var i=0; i < othersProblemsList.length; i++){
-            // var car = new Option(cars[i], i);
-            var phone = document.createElement('option')
-            phone.value = othersProblemsList[i]
-            phone.textContent = othersProblemsList[i]
-        
-            others.options.add(phone);
-        }
-}
 
 </script>
 {% endblock extra_js %}

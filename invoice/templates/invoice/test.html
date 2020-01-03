@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <select name="" id="phone" onchange='phoneChange()'></select>
+    <select name="" id="phone2" ></select>
+    <select name="" id="phone3"></select>
+
+
+    <script>
+    // 모델 정의하기
+    var models = { 'apple' : { 'iphone6': '69', 'iphone7' : '79', 'iphone8' : '89' },
+                  'samsung' : { 's3' : '39', 's4' : '49', 's5' : '59' },
+                   ' htc' : { 'htc10' : '10', 'htc11': '11'}
+    }
+
+    // select 선택하기
+    phone = document.getElementById('phone')
+    
+    // SELECT option에 집어넣기
+    for (obj in models ){
+    var option = document.createElement('option');
+    option.value = obj;
+    option.text = obj;
+    phone.options.add(option);
+    }
+
+    function phoneChange(){
+    // ID 선택하기
+    var phone = document.getElementById('phone')
+    var phone2 = document.getElementById('phone2')
+
+    // OPTION 선택한 값 선택하기
+    var selPhone = phone.options[phone.selectedIndex].value
+
+    // 선택한 값과 2번째 모델 매칭
+    a = models[selPhone]
+    console.log(selPhone)
+    
+    // 선택한 값과 2번째 모델과 연결하기
+    while(phone2.length) {
+        phone2.remove(0)
+    }
+    for (obj in a){
+    var option = document.createElement('option');
+    option.value = obj;
+    option.text = obj;
+    phone2.options.add(option);
+    }
+    
+    }
+    
+    </script>
+</body>
+</html>
