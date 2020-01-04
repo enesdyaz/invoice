@@ -1,0 +1,190 @@
+{% extends 'base.html' %}
+{% block title %}Repair Form Details{% endblock title %}
+{% block content %}
+
+<div id="wrap" style='margin: 20px;'>
+<div class='container'>
+
+    <div class="PersonalDeviceDetails" style='display:flex; padding: 20px;'>
+        <div class="card" style='width: 600px;margin: 5px'>
+                <h5 class="card-header">Device Details</h5>
+                    <div class="card-body" style='height:auto;'> Phone Brand: 
+
+                        <!-- SELECT 1 -->
+                    
+                       <select class='custom-select' id="phone" name="phone" onchange='phoneChange()' style='margin: 3px'> 
+                           <option value="" selected>select</option>
+                           <option value="Apple">APPLE</option>
+                           <option value="Samsung">SAMSUNG</option>
+                           <option value="HTC">HTC</option>
+                       </select>
+
+                       <!-- SELECT 2 -->
+                       <select class='custom-select' id="phone2" name="phone2" onchange='phone2Change()' style='margin: 3px'>
+                            <option value="" selected>select</option>
+                        </select>
+                      
+
+                        <!-- SELECT 3      -->
+                        <select class='custom-select' name="" id="others" onchange='phone3Change()' style='margin: 3px'>Others :
+                            <option value="" selected>None</option>
+                        </select>
+                    
+
+                        <!-- RESULT DISPLAY -->
+                        <div id='result' style='margin-top: 10px;margin-left: 8px;color:darkslategrey'></div>
+        
+        </div>
+        </div>
+
+        <div class="card" style='width: 600px;margin: 5px'>
+                <h5 class="card-header">Personal Details</h5>
+                    <div class="card-body">
+                            <form>
+                                    <div class="form-row">
+                                      <div class="form-group col-md-6">
+                                        <label for="inputEmail4">First Name</label>
+                                        <input type="text" class="form-control" id="inputEmail4" placeholder="Email">
+                                      </div>
+                                      <div class="form-group col-md-6">
+                                        <label for="inputPassword4">Last Name</label>
+                                        <input type="text" class="form-control" id="inputPassword4" placeholder="Last Name">
+                                      </div>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                      <label for="inputAddress">Address</label>
+                                      <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="inputAddress2">Email</label>
+                                      <input type="email" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
+                                    </div>
+                                    
+                                        <input class="form-check-input" type="checkbox" id="gridCheck">
+                                        <label class="form-check-label" for="gridCheck">
+                                          Check me out
+                                        </label>
+                                    
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Sign in</button>
+                                  </form>
+                    </div>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}
+
+
+
+{% block extra_js %}
+<script>
+
+    var phoneModels = {};
+        phoneModels['Apple'] = ['iphone6', 'iphone7', 'iphone8', 'iphone10']
+        phoneModels['Samsung'] = ['Galaxy S8', 'Galaxy S9', 'Galaxy S10', 'Note 10']
+        phoneModels['HTC'] = ['HTC 10', 'HTC 11']
+
+// 위에 모델을 셀렉트에 넣어봅시다
+
+function phoneChange(){
+    // 미리 id를 생성(선택) 합니다.
+    var phoneList = document.getElementById('phone');
+    var phone2List = document.getElementById('phone2');
+
+    // car 셀렉트를 선택하였을때 옵션의 셀렉트 인덱스값을 받아옵니다.
+    var selPhone = phoneList.options[phoneList.selectedIndex].value;
+    
+    // car 옵션의 value를  carsAndModels의 값에 연결합니다.
+    var phones = phoneModels[selPhone]
+  
+    // 모델의 값이 있으면 그 값을 제거한다. 다른 옵션을 선택하였을때 다시보여주기 위함.
+    while(phone2List.options.length) {
+        
+        phone2List.remove(0);
+    }
+    // cars 에 값이 들어가면 들어간만큼 loop를 돌면서 하나씩 options에 add를 합니다. 
+    if (phones) {
+        
+        for (var i=0; i<phones.length; i++){
+            // var car = new Option(cars[i], i);
+            var phone = document.createElement('option')
+            phone.value = phones[i]
+            phone.textContent = phones[i]
+        
+            phone2List.options.add(phone);
+        }
+    }
+    selPhoneModel = phone2List.options[phone2List.selectedIndex].value;
+    console.log(selPhoneModel);
+  
+}
+
+
+othersList = {};
+
+othersList['iphone6'] = ['6 screen issue', 'battery issue', 'sensor issue']
+othersList['iphone7'] = {'7 screen issue':'59', 'battery issue':'79', 'sensor issue':'89'}
+othersList['iphone8'] = ['8 power issue 8', 'battery issue', 'sensor issue']
+othersList['iphone10'] = ['10 power issue 10', 'battery issue', 'sensor issue']
+othersList['Galaxy S8']=['S8 power issue 10', 'battery issue', 'sensor issue']
+othersList['Galaxy S9']=['S9 power issue 10', 'battery issue', 'sensor issue']
+othersList['Galaxy S10']=['S10 power issue 10', 'battery issue', 'sensor issue']
+othersList['Note 10']=['10 power issue 10', 'battery issue', 'sensor issue']
+othersList['HTC 10']=['10 power issue 10', 'battery issue', 'sensor issue']
+othersList['HTC 11']=['11 power issue 10', 'battery issue', 'sensor issue']
+
+
+function phone2Change() {
+    phoneList = document.getElementById('phone')
+    phone2List = document.getElementById('phone2');
+    others = document.getElementById('others');
+    
+    selPhone = phoneList.options[phoneList.selectedIndex].value;
+    selPhoneModel = phone2List.options[phone2List.selectedIndex].value;
+    
+
+    phones = othersList[selPhoneModel];
+    
+
+    while(others.options.length){
+        others.remove(0);
+    }
+    if(phones){
+        for( a in phones){
+        phone = document.createElement('option')
+        phone.value=a
+        phone.text=a
+        value = Object.values(phones[a])
+        phone.id = value
+        console.log(value)
+
+        others.options.add(phone);    
+        }
+    // for(var i=0; i<phones.length; i++){
+        
+    //     phone = document.createElement('option')
+    //     phone.value=phones[i]
+    //     phone.text=phones[i]
+
+    //     others.options.add(phone);
+    // }
+    }
+}
+
+
+function phone3Change(){
+    others = document.getElementById('others');
+    selPhoneModelDetail = others.options[others.selectedIndex].value;
+    objothersList.
+
+    othersList.iphone
+    result = 'Device / Issue : ' + selPhone + ' > ' + selPhoneModel + ' > ' + selPhoneModelDetail;
+    document.getElementById('result').innerHTML = result;
+}
+
+
+</script>
+{% endblock extra_js %}
